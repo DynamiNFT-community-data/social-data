@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "social data"
+version = "0.1.0"
+description = ""
+authors = ["dahliasan"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+snscrape = "^0.4.3.20220106"
+pipe = "^2.0"
+
+[tool.poetry.group.dev.dependencies]
+pandas = "^1.4.4"
+requests = "^2.28.1"
+matplotlib = "^3.5.3"
+pipe = "^2.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
