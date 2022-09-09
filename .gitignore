@@ -1,5 +1,6 @@
 # Project stuff
 *-images
+.ds_store
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
