@@ -13,6 +13,11 @@ snscrape = "^0.4.3.20220106"
 matplotlib = "^3.5.3"
 tensorflow = "^2.10.0"
 numpy = "^1.23.2"
+transformers = "^4.21.3"
+scipy = "^1.9.1"
+torch = "^1.12.1"
+torchvision = "^0.13.1"
+torchaudio = "^0.12.1"
 
 
 [tool.poetry.group.dev.dependencies]

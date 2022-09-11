@@ -46,7 +46,7 @@ def getTweets(query, limit=10):
             "date",
             "user",
             "username",
-            "content",
+            "text",
             "tweet_id",
             "url",
             "replies",
@@ -67,7 +67,7 @@ def getTweets(query, limit=10):
 
 
 # %% Scrape twitter data
-query = 'boredapeyc OR bayc OR "bored ape" -is:retweet -is:quoted'
+query = 'boredapeyc OR bayc OR "bored ape" -is:retweet'
 tweets_df = getTweets(query, 100)
 tweets_df["mentioned_users_count"] = [len(x) if type(x) == list else 0 for x in tweets_df.mentioned_users]
 
@@ -90,8 +90,8 @@ tweets_df_agg
 # %% Get most influential tweets
 
 # %% ### Get nft twitter account stats
-nft_user = getTweets("from:boredapeyc", 1)["user"][0]
-nft_user
+brand_user = getTweets("from:boredapeyc", 1)["user"][0]
+brand_user
 
 # %% #### Calulate % unique pfps on twitter ####
 # Get all nfts metadata from collection
@@ -127,8 +127,6 @@ nfts_images = pd.DataFrame(nfts_data, columns=["token_id", "cached_file_url"])
 
 nfts_images.head()
 nfts_images.shape
-# %%
-
 
 # %%
 ## Get pfps of twitter users
@@ -138,7 +136,6 @@ for row in tweets_df_unique_users.user:
     twitter_pfps = twitter_pfps.append(
         {"user_id": row.id, "profile_image_url": row.profileImageUrl.replace("_normal", "")}, ignore_index=True
     )
-
 
 twitter_pfps
 

@@ -1,6 +1,7 @@
 # Project stuff
 *-images
 .ds_store
+cardiffnlp
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
