@@ -68,7 +68,7 @@ def getTweets(query, limit=10):
 
 # %% Scrape twitter data
 query = 'boredapeyc OR bayc OR "bored ape" -is:retweet'
-tweets_df = getTweets(query, 100)
+tweets_df = getTweets(query, 2000)
 tweets_df["mentioned_users_count"] = [len(x) if type(x) == list else 0 for x in tweets_df.mentioned_users]
 
 print(tweets_df)

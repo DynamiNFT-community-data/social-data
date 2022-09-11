@@ -1,6 +1,10 @@
+#%% Import libraries
+
+from transformers import TextClassificationPipeline, AutoModelForSequenceClassification, AutoTokenizer
+import numpy as np
+import re
+
 # %% Clean text
-
-
 def preprocess(text):
     new_text = []
     for t in text.split(" "):
@@ -16,15 +20,12 @@ tweets_df["clean_text"] = tweets_df.text.apply(lambda x: preprocess(x))
 
 #%%
 ######## Detect SPAM ############
-from transformers import AutoTokenizer, AutoModelForSequenceClassification
-
 tokenizer = AutoTokenizer.from_pretrained("mvonwyl/roberta-twitter-spam-classifier")
 
 spam_model = AutoModelForSequenceClassification.from_pretrained("mvonwyl/roberta-twitter-spam-classifier")
 
 pipe_spam = TextClassificationPipeline(model=spam_model, tokenizer=tokenizer)
 
-# %%
 tweets_df["spam"] = np.nan
 tweets_df["spam_score"] = np.nan
 
@@ -43,10 +44,8 @@ for i, row in tweets_df.iterrows():
 
 print(tweets_df[["clean_text", "spam", "spam_score"]])
 
-#%%
-from transformers import TextClassificationPipeline, AutoModelForSequenceClassification, AutoTokenizer
-import re
-import numpy as np
+# %% Sentiment analysis
+
 
 model_name = "ElKulako/cryptobert"
 tokenizer = AutoTokenizer.from_pretrained(model_name, use_fast=True)
@@ -67,4 +66,20 @@ for i, row in tweets_df.iterrows():
 
 
 tweets_df[["clean_text", "sentiment"]]
+# %% Topic modelling
+
+from top2vec import Top2Vec
+
+# %%
+docs = tweets_df.clean_text.tolist()
+model = Top2Vec(documents=docs, speed="deep-learn")
+
+# %%
+print(model.get_num_topics())
+
+(topic_words, word_scores, topic_nums) = model.get_topics(4)
+for topic in topic_nums:
+    model.generate_topic_wordcloud(topic)
+
+
 # %%
